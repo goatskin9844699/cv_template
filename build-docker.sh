@@ -4,9 +4,9 @@
 docker build -t latex-resume .
 
 # Run the container
-# Maps the temp/build directory to get the output PDF
+# Maps the data directory to get the output PDF
 docker run --rm \
-  -v "$(pwd)/temp/build:/resume/temp/build" \
+  -v "$(pwd)/data:/resume/data" \
   latex-resume
 
-echo "Resume has been compiled. Check temp/build/resume.pdf" 
+echo "Resume has been compiled. Check data/resume.pdf" 

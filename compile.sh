@@ -12,28 +12,22 @@ done
 # Store the project root directory
 PROJECT_ROOT=$(pwd)
 
-# Create output directory if it doesn't exist
-mkdir -p temp/build
-
-# Change to the content directory
-cd content
+# Create data directory if it doesn't exist
+mkdir -p data
 
 # Run xelatex with TEXINPUTS to include the src directory in the search path
-TEXINPUTS="$PROJECT_ROOT/src/templates:$PROJECT_ROOT:" xelatex -output-directory=../temp/build resume.tex
+TEXINPUTS="$PROJECT_ROOT/src/templates:$PROJECT_ROOT:" xelatex -output-directory=data resume.tex
 
 # Run xelatex twice more
-TEXINPUTS="$PROJECT_ROOT/src/templates:$PROJECT_ROOT:" xelatex -output-directory=../temp/build resume.tex
-TEXINPUTS="$PROJECT_ROOT/src/templates:$PROJECT_ROOT:" xelatex -output-directory=../temp/build resume.tex
-
-# Go back to project root
-cd ..
+TEXINPUTS="$PROJECT_ROOT/src/templates:$PROJECT_ROOT:" xelatex -output-directory=data resume.tex
+TEXINPUTS="$PROJECT_ROOT/src/templates:$PROJECT_ROOT:" xelatex -output-directory=data resume.tex
 
 # Clean up temporary files unless in debug mode
 if [ "$DEBUG" = false ]; then
-    rm -f temp/build/*.aux temp/build/*.log temp/build/*.out temp/build/*.toc \
-          temp/build/*.lof temp/build/*.lot temp/build/*.bbl temp/build/*.blg \
-          temp/build/*.nav temp/build/*.snm
+    rm -f data/*.aux data/*.log data/*.out data/*.toc \
+          data/*.lof data/*.lot data/*.bbl data/*.blg \
+          data/*.nav data/*.snm
     echo "Temporary files cleaned up."
 fi
 
-echo "Compilation complete. Output is in temp/build/resume.pdf" 
+echo "Compilation complete. Output is in data/resume.pdf" 

@@ -19,7 +19,6 @@ WORKDIR /resume
 # Copy only necessary files
 COPY src/templates ./src/templates
 COPY src/fonts ./src/fonts
-COPY content ./content
 COPY compile.sh ./
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -37,8 +36,8 @@ RUN mkdir -p /usr/local/share/fonts/opentype/texgyreheros && \
 # Make compile script executable
 RUN chmod +x compile.sh
 
-# Create temp directory for output
-RUN mkdir -p temp/build
+# Create data directory for input/output
+RUN mkdir -p data
 
 # Set default command
 CMD ["./compile.sh"] 

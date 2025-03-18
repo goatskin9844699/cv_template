@@ -1,162 +1,162 @@
-# LaTeX CV Template
+# Resume YAML to LaTeX
 
-A professional LaTeX CV template based on the Friggeri CV template, with custom modifications and improvements. Features a clean, modern design with customizable sections and formatting.
-
-## Quick Start
-
-### Using Docker (Recommended)
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/resume_latex_template.git
-cd resume_latex_template
-
-# Edit your resume content
-edit content/resume.tex
-
-# Build using Docker (no LaTeX installation required)
-./build-docker.sh
-```
-Your compiled resume will be available at `temp/build/resume.pdf`
-
-### Using Local LaTeX Installation
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/resume_latex_template.git
-cd resume_latex_template
-
-# Edit your resume content
-edit content/resume.tex
-
-# Compile using the script
-./compile.sh
-```
+A Python tool to generate LaTeX resumes from YAML data. This tool allows you to maintain your resume data in a structured YAML format and convert it to a beautiful LaTeX document.
 
 ## Features
 
-- Clean, modern design based on the Friggeri CV template
-- Customizable sections with consistent formatting
-- Professional skills section with categorized layout and subtle separators
-- Responsive layout that works well both in print and digital formats
-- ATS-friendly structure
-- Docker support for easy compilation without local LaTeX installation
-
-## Requirements
-
-### Option 1: Using Docker (Recommended)
-- Docker installed on your system
-- No other dependencies needed
-
-### Option 2: Local LaTeX Installation
-#### LaTeX Distribution
-- A modern LaTeX distribution (e.g., TeX Live 2021 or newer)
-- XeLaTeX compiler (for font support)
-
-#### Required Packages
-- geometry (page layout)
-- xcolor (color support)
-- tabularx (tables)
-- enumitem (list customization)
-- multicol (multiple columns)
-- colortbl (table colors)
-- lipsum (optional, for demo content)
+- Convert YAML resume data to LaTeX format
+- Support for multiple LaTeX templates (currently includes Friggeri template)
+- Docker support for easy deployment and consistent LaTeX compilation
+- Command-line interface for easy use
+- Python API for programmatic usage
 
 ## Project Structure
 
 ```
-resume_latex_template/
-├── src/                    # Source files
-│   ├── templates/         # Template files
-│   │   └── friggeri-cv.cls
-│   └── fonts/            # Font files
-│       ├── texgyreheros/
-│       └── lato/
-├── content/              # User content
-│   └── resume.tex       # Main resume content file
-├── temp/                # Generated files (gitignored)
-│   ├── build/          # Compilation output
-│   └── aux/            # Auxiliary files
-├── Dockerfile          # Docker configuration
-├── build-docker.sh     # Docker build script
-└── compile.sh          # Local compilation script
+resume-yaml-to-latex/
+├── data/                    # Input/output data directory
+│   ├── resume.yaml         # Your resume data
+│   ├── resume.tex          # Generated LaTeX file
+│   └── resume.pdf          # Compiled PDF output
+├── src/
+│   └── resume_yaml_to_latex/
+│       ├── __init__.py
+│       ├── main.py         # CLI implementation
+│       ├── models.py       # Data models
+│       ├── parser.py       # YAML parser
+│       └── templates/      # LaTeX templates
+│           ├── base.py
+│           └── friggeri.py
+├── Dockerfile
+├── docker-compose.yml
+├── requirements.txt
+├── setup.py
+└── README.md
 ```
 
-## Usage
+## Using Docker (Recommended)
 
-### Docker Method
-1. Make sure Docker is installed on your system
-2. Edit your CV content in `content/resume.tex`
-3. Run the Docker build script:
+1. Build the Docker image:
    ```bash
-   ./build-docker.sh
+   docker-compose build
    ```
-4. Find your compiled PDF in `temp/build/resume.pdf`
 
-### Local Installation Method
-1. Edit your CV content in `content/resume.tex`
-2. Compile using the provided script:
+2. Place your resume data in `data/resume.yaml`
+
+3. Generate a resume:
    ```bash
-   ./compile.sh
+   docker-compose run resume-generator
    ```
-   For debugging, use the debug flag to preserve auxiliary files:
+
+The generated LaTeX file will be available at `data/resume.tex`.
+
+## Local Installation
+
+1. Clone the repository:
    ```bash
-   ./compile.sh -d
+   git clone https://github.com/yourusername/resume-yaml-to-latex.git
+   cd resume-yaml-to-latex
    ```
-3. Find your compiled PDF in `temp/build/resume.pdf`
 
-## Customization
+2. Install the package:
+   ```bash
+   pip install -e .
+   ```
 
-### Skills Section
-The template includes a customized skills section with:
-- Bold category headers
-- Light grey separator lines between categories
-- Consistent spacing and indentation
-- Example usage:
-```latex
-\begin{skills}
-\category{Languages}Python, Java, C++
-\skillsep
-\category{Frameworks}Django, Spring, Qt
-\end{skills}
+## Command Line Interface
+
+Generate a resume from YAML data:
+
+```bash
+# Using default files (data/resume.yaml -> data/resume.tex)
+resume-yaml-to-latex
+
+# Or specify custom input/output files
+resume-yaml-to-latex path/to/resume.yaml path/to/output.tex
 ```
 
-### Template Styles
-- Main template styles are defined in `src/templates/friggeri-cv.cls`
-- Colors can be customized in the template file
-- Section spacing and formatting can be adjusted in the class file
+Options:
+- `--template`: Specify the template to use (default: friggeri)
 
-### Fonts
-- Default fonts are included in `src/fonts/`
-- Font configurations can be modified in the template file
+## Python API
 
-## Troubleshooting
+```python
+from resume_yaml_to_latex.parser import ResumeParser
+from resume_yaml_to_latex.templates.friggeri import FriggeriTemplate
 
-### Font Issues
-If you're using the local installation method and encounter font-related errors:
+# Parse YAML data
+resume = ResumeParser.parse("data/resume.yaml")
 
-1. Make sure the fonts are properly installed in your system:
-   ```bash
-   # For Linux systems
-   sudo mkdir -p /usr/share/fonts/truetype/texgyreheros
-   sudo mkdir -p /usr/share/fonts/truetype/lato
-   sudo cp src/fonts/texgyreheros/*.otf /usr/share/fonts/truetype/texgyreheros/
-   sudo cp src/fonts/lato/*.ttf /usr/share/fonts/truetype/lato/
-   sudo fc-cache -f -v
-   ```
+# Generate LaTeX
+template = FriggeriTemplate()
+template.set_resume(resume)
+latex_content = template.generate()
 
-2. If you're still having issues, try using the Docker method instead, which handles font installation automatically.
+# Save to file
+with open("data/resume.tex", "w") as f:
+    f.write(latex_content)
+```
 
-### Common Issues
-- If you see "font cannot be found" errors, make sure you're either using Docker (recommended) or have installed the fonts as described above.
-- For other LaTeX-related errors when using local installation, make sure all required packages are installed through your TeX distribution.
+## YAML Format
+
+Your resume data should be structured in YAML format as follows:
+
+```yaml
+basic_info:
+  name: "Your Name"
+  email: "your.email@example.com"
+  phone: "+1 234 567 8900"
+  location: "City, Country"
+  website: "https://your-website.com"
+
+objective: "A brief professional summary"
+
+education:
+  - school: "University Name"
+    location: "City, Country"
+    degree: "Degree Name"
+    field: "Field of Study"
+    start_date: "2020"
+    end_date: "2024"
+    gpa: "3.8"
+
+experiences:
+  - company: "Company Name"
+    location: "City, Country"
+    position: "Job Title"
+    start_date: "2022"
+    end_date: "Present"
+    highlights:
+      - "Achievement or responsibility"
+      - "Another achievement or responsibility"
+
+skills:
+  - category: "Technical Skills"
+    items:
+      - "Skill 1"
+      - "Skill 2"
+  - category: "Soft Skills"
+    items:
+      - "Skill 1"
+      - "Skill 2"
+```
+
+## Templates
+
+### Friggeri Template
+
+The Friggeri template is a modern, clean design that includes:
+- Professional header with contact information
+- Two-column layout
+- Skills section with categorized items
+- Experience timeline
+- Education section
+- Clean typography and spacing
 
 ## Contributing
 
-Feel free to submit issues and enhancement requests!
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is open source and available under the [MIT License](LICENSE).
-
-## Acknowledgments
-
-Based on the Friggeri CV template with significant modifications and improvements. 
+This project is licensed under the MIT License - see the LICENSE file for details. 
