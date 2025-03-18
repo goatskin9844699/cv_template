@@ -42,4 +42,3 @@ RUN mkdir -p temp/build
 
 # Set default command
 CMD ["./compile.sh"] 
-CMD ["./compile.sh"] 
