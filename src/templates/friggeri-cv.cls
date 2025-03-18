@@ -17,7 +17,7 @@
 \RequirePackage{xcolor, tabularx}
 
 \definecolor{white}{RGB}{255,255,255}
-
+\definecolor{black}{RGB}{0,0,0}
 \definecolor{darkgray}{HTML}{333333}
 \definecolor{gray}{HTML}{4D4D4D}
 %\definecolor{lightgray}{HTML}{999999}
@@ -41,39 +41,26 @@
   \colorlet{fillheader}{gray}
   \colorlet{header}{white}
 \fi
-\colorlet{textcolor}{gray}
+\colorlet{textcolor}{black}
 \colorlet{headercolor}{gray}
 
 %%%%%%%%%
 % Fonts %
 %%%%%%%%%
 
-%% modified by Karol Kozioł for ShareLaTex use
-\RequirePackage[quiet]{fontspec}
-\RequirePackage[math-style=TeX]{unicode-math}
-\setmathfont{latinmodern-math.otf}
+\RequirePackage{fontspec}
+\RequirePackage{unicode-math}
 
-\newfontfamily\bodyfont
-[BoldFont=texgyreheros-bold.otf,
-ItalicFont=texgyreheros-italic.otf,
-BoldItalicFont=texgyreheros-bolditalic.otf]
-{texgyreheros-regular.otf}
-\newfontfamily\thinfont[]{Lato-Light.ttf}%%% modified by Karol Kozioł for ShareLaTex use
-
-\newfontfamily\headingfont[]{texgyreheros-bold.otf}
+\newfontfamily\bodyfont[Path=/usr/local/share/fonts/opentype/texgyreheros/]{texgyreheros-regular.otf}
+\newfontfamily\thinfont[Path=/usr/local/share/fonts/truetype/lato/]{Lato-Light.ttf}
+\newfontfamily\headingfont[Path=/usr/local/share/fonts/opentype/texgyreheros/]{texgyreheros-bold.otf}
 
 \defaultfontfeatures{Mapping=tex-text}
-\setmainfont
-[Mapping=tex-text, Color=textcolor,
-BoldFont=texgyreheros-bold.otf,
-ItalicFont=texgyreheros-italic.otf,
-BoldItalicFont=texgyreheros-bolditalic.otf
-]
-{texgyreheros-regular.otf}
-
-\setmathfont{texgyreheros-regular.otf}
-%
-
+\setmainfont[Path=/usr/local/share/fonts/opentype/texgyreheros/,
+    BoldFont=texgyreheros-bold.otf,
+    ItalicFont=texgyreheros-italic.otf,
+    BoldItalicFont=texgyreheros-bolditalic.otf
+]{texgyreheros-regular.otf}
 
 %%%%%%%%%%
 % Header %
