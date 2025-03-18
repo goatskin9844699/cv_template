@@ -1,0 +1,169 @@
+%!TEX TS-program = xelatex
+\documentclass[]{friggeri-cv}
+
+% prevent latex from hypenation
+\hyphenpenalty=10000
+
+% allow modification of list indent
+\usepackage{enumitem}
+\usepackage{lipsum}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{colortbl}
+
+% Custom commands for publications
+\newenvironment{publications}
+  {\section{Publications}
+   \begin{enumerate}[leftmargin=6mm, itemsep=4mm, label={[\arabic*]}]}
+  {\end{enumerate}}
+
+% Define a custom environment for skills
+\newenvironment{skills}{%
+  \par\noindent%
+}{%
+}
+
+% Define commands for skills section
+\newcommand{\skillsep}{%
+  \par%
+  \vspace{-3mm}
+  \noindent%
+  \textcolor{gray!30}{\rule{0.5\textwidth}{0.5pt}}%
+  \vspace{-2mm}\par\vspace{-1mm}%
+}
+
+\newcommand{\category}[1]{%
+  \par\noindent\textbf{#1:}\hspace{0.5em}%
+}
+
+\begin{document}
+% define contact information
+\contact{San Francisco, CA, USA}{+1 (555) 123-4567}{example@email.com}
+
+\header{John}{ Smith}{}
+    
+\vspace{5mm}
+\section{Professional Summary}    
+\vspace{-2mm}
+\lipsum[1][1-3]
+
+\section{Technical Skills}
+\vspace{-2mm}
+\begin{skills}
+\category{Languages}Scala, Ruby, Rust, Haskell, Go, Swift, Perl
+
+\skillsep
+\category{Frameworks}Phoenix, FastAPI, Vapor, NestJS, Flutter, Svelte
+
+\skillsep
+\category{Cloud \& DevOps}GCP (Cloud Run, Functions, Storage), Terraform, Ansible, CircleCI, GitLab CI
+
+\skillsep
+\category{Data \& Storage}CockroachDB, Cassandra, Neo4j, InfluxDB
+
+\skillsep
+\category{Development}Neovim, Emacs, JetBrains, FreeBSD, NixOS
+
+\skillsep
+\category{Testing}Behavior-Driven Development, Property Testing, Fuzzing
+
+\skillsep
+\category{Methodologies}Domain-Driven Design, Event Sourcing, CQRS, Kanban, DevSecOps
+\end{skills}
+
+\vspace{1mm}
+\section{Professional Experience}
+\vspace{-3mm}  
+\begin{entrylist}
+\entry
+{03/2021\,\textendash\ 12/2023}
+{Senior Software Engineer}
+{TechCorp Inc., San Francisco, USA}
+{
+	\vspace{-3mm}
+	\begin{itemize}[leftmargin=5mm]
+		\item \lipsum[2][1-2]
+		\item \lipsum[3][1-2]
+		\item \lipsum[4][1-2]
+		\item \lipsum[5][1-2]
+		\item \lipsum[6][1-2]
+	\end{itemize}
+}
+\entry
+{06/2019\,\textendash\ 02/2021}
+{Software Engineer}
+{TechCorp Inc., San Francisco, USA}
+{
+	\vspace{-3mm}
+	\begin{itemize}[leftmargin=5mm]
+		\item \lipsum[7][1-2]
+		\item \lipsum[8][1-2]
+		\item \lipsum[9][1-2]
+	\end{itemize}
+}
+\entry
+{08/2016\,\textendash\ 12/2017}
+{Software Engineer}
+{DataFlow Systems, San Francisco, USA}
+{
+	\vspace{-3mm}
+	\begin{itemize}[leftmargin=5mm]
+		\item \lipsum[15][1-2]
+		\item \lipsum[16][1-2]
+		\item \lipsum[17][1-2]
+	\end{itemize}
+}
+\entry
+{06/2014\,\textendash\ 08/2014}
+{Internship}
+{StartupX, San Francisco, USA}
+{
+	\vspace{-3mm}
+	\begin{itemize}[leftmargin=5mm]
+		\item \lipsum[23][1-2]
+	\end{itemize}
+}
+\end{entrylist}
+
+\vspace{-9mm}
+\section{Education}
+
+\vspace{-2mm}  
+\begin{entrylist}
+	\entry
+	{09/2012\,\textendash\,06/2014}
+	{MSc Computer Science}
+	{Stanford University, USA}
+	{
+	\vspace{-3mm}
+	\begin{itemize}[leftmargin=5mm]
+		\item 
+		\textbf{Thesis:} ``\lipsum[24][1-2]''  			
+		\item
+		\raggedright
+		\textbf{Relevant course work:} \lipsum[25][1-2]               
+	\end{itemize}
+	}
+	\entry
+	{09/2008\,\textendash\,06/2012}
+	{BSc Computer Science}
+	{University of California, Berkeley, USA}
+	{
+	\vspace{-3mm}
+	\begin{itemize}[leftmargin=5mm]
+		\item
+		\textbf{Thesis:} ``\lipsum[26][1-2]''
+		\item
+		\raggedright
+		\textbf{Relevant course work:} \lipsum[27][1-2]
+	\end{itemize}
+	}
+\end{entrylist}
+
+\begin{publications}
+\item \textbf{John Smith}, Jane Doe, Robert Johnson, and Michael Brown. \lipsum[28][1-2]. In \textit{International Conference on Computer Science (ICCS)}, San Francisco, USA, 2023.
+
+\item \textbf{John Smith}, Jane Doe, Robert Johnson, and Michael Brown. \lipsum[29][1-2]. In \textit{IEEE Conference on Software Engineering (ICSE)}, Seattle, USA, 2022.
+\end{publications}
+
+\end{document}
